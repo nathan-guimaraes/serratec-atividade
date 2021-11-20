@@ -6,7 +6,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { StyledTableCell, StyledTableRow } from "./styles";
+// import { StyledTableCell, StyledTableRow } from "./styles";
+import { StyledTableCell, StyledTableRow } from "../../components/Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants";
@@ -33,11 +34,11 @@ const AlunosListagem = () => {
       .delete(API_URL, { data: aluno })
       .then((response) => {
         MySwal.fire(<p>{response?.data?.message}</p>);
-        
+
         const alunoIndex = alunos.findIndex(
           (elemento) => elemento.id === aluno.id
         );
-        let newAlunos = [ ...alunos ];
+        let newAlunos = [...alunos];
         newAlunos.splice(alunoIndex, 1);
         setAlunos(newAlunos);
       })

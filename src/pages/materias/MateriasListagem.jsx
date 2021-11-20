@@ -6,7 +6,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { StyledTableCell, StyledTableRow } from "./styles";
+import { StyledTableCell, StyledTableRow } from "../../components/Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../constants";
