@@ -25,6 +25,12 @@ export default function ButtonAppBar() {
           <Link to="/cadastrar-alunos">
             <Button color="inherit">Cadastro de Aluno</Button>
           </Link>
+          <Link to="/listar-materias">
+            <Button color="inherit">Listagem de Matérias</Button>
+          </Link>
+          <Link to="/cadastrar-materias">
+            <Button color="inherit">Cadastro de Materias</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>
