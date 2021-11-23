@@ -23,7 +23,7 @@ Os endpoints a serem utilizados são os seguintes:
     {
         "id": 3,
         "titulo": "Banco de dados",
-        "professor_nome":
+        "professor_nome": "Joao"
     }
 ```
 
