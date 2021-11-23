@@ -11,11 +11,12 @@ import CadastrarMaterias from "./pages/materias/CadastrarMaterias";
 
 const Routes = () => {
   const routes = useRoutes([
-    // { path: "/", element: <AlunosListagem /> },
-    { path: "/", element: <MateriasListagem /> },
+    { path: "/", element: <AlunosListagem /> },
     { path: "/cadastrar-alunos", element: <CadastrarAlunos /> },
+    { path: "/editar-alunos/:id", element: <CadastrarAlunos /> },
     { path: "/listar-materias", element: <MateriasListagem /> },
     { path: "/cadastrar-materias", element: <CadastrarMaterias /> },
+    { path: "/editar-materias/:id", element: <CadastrarMaterias /> },
   ]);
 
   return routes;

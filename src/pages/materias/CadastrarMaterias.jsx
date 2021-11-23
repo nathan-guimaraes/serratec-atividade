@@ -1,60 +1,107 @@
 import axios from "axios";
-import { useState } from "react";
-import { ButtonCadastro, Form, InputCadastro } from "../../components/Cadastros";
+import { useEffect, useState } from "react";
+import Styles from "../../components/Styles";
+import {
+  ButtonCadastro,
+  Form,
+  InputCadastro,
+} from "../../components/Cadastros";
 import { API_URL } from "../../constants";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useParams } from "react-router";
+
+const API_URL_MATERIAS = API_URL + "materias";
 
 const CadastrarMaterias = () => {
+  const { id } = useParams();
   const MySwal = withReactContent(Swal);
 
-  const [titulo, setTitulo] = useState();
-  const [professorNome, setProfessorNome] = useState();
+  const valorInicial = id ? "" : null;
+  const [titulo, setTitulo] = useState(valorInicial);
+  const [nomeProfessor, setNomeProfessor] = useState(valorInicial);
 
-  const cadastrarMaterias = () => {
-    axios
-      .post(API_URL, {
-        titulo: titulo,
-        professor_nome: professorNome,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          MySwal.fire(<p>{response?.data?.message}</p>);
-          limparCampos();
-        }
-      })
-      .catch((error) => {
-        MySwal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: error,
+  useEffect(() => {
+    getMaterias();
+  }, []);
+
+    const getMaterias = () => {
+      axios.get(API_URL_MATERIAS).then((response) => {
+        response.data.forEach((materia) => {
+          if (materia.id == id) {
+            setTitulo(materia.titulo);
+            setNomeProfessor(materia.professor_nome);
+          }
         });
       });
+    };
+
+  const cadastrarMaterias = () => {
+    if (id) {
+      axios
+        .put(API_URL_MATERIAS, {
+          id: id,
+          titulo: titulo,
+          professor_nome: nomeProfessor,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            MySwal.fire(<p>{response?.data?.message}</p>);
+            limparCampos();
+          }
+        })
+        .catch((error) => {
+          MySwal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error,
+          });
+        });
+    } else {
+      axios
+        .post(API_URL_MATERIAS, {
+          titulo: titulo,
+          professor_nome: nomeProfessor,
+        })
+        .then((response) => {
+          if (response.status === 201) {
+            MySwal.fire(<p>{response?.data?.message}</p>);
+            limparCampos();
+          }
+        })
+        .catch((error) => {
+          MySwal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error,
+          });
+        });
+    }
   };
 
   const limparCampos = () => {
     setTitulo("");
-    setProfessorNome("");
+    setNomeProfessor("");
   };
 
   return (
-    <Form>
-      <InputCadastro
+    <Styles.Form>
+      <Styles.InputCadastro
         label="Título"
         variant="outlined"
         value={titulo}
         onChange={(e) => setTitulo(e.target.value)}
       />
-      <InputCadastro
+      <Styles.InputCadastro
         label="Nome do Professor"
         variant="outlined"
-        value={professorNome}
-        onChange={(e) => setProfessorNome(e.target.value)}
+        value={nomeProfessor}
+        onChange={(e) => setNomeProfessor(e.target.value)}
       />
-      <ButtonCadastro variant="contained" onClick={cadastrarMaterias}>
-        Cadastrar
-      </ButtonCadastro>
-    </Form>
+      <Styles.ButtonCadastro variant="contained" onClick={cadastrarMaterias}>
+        {id ? "Editar" : "Cadastrar"}
+      </Styles.ButtonCadastro>
+    </Styles.Form>
   );
 };
 
