@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import { StyledTableCell, StyledTableRow } from "../../components/Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../../constants";
+import { API_URLM } from "../../constants";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Swal from "sweetalert2";
@@ -17,8 +17,6 @@ import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
 import Lottie from "react-lottie";
 import animationData from "../../lotties/78259-loading.json";
-
-const API_URL_MATERIAS = API_URL + "materias";
 
 const MateriasListagem = () => {
   const navigate = useNavigate();
@@ -39,14 +37,14 @@ const MateriasListagem = () => {
   }, []);
 
   const getMaterias = () => {
-    axios.get(API_URL_MATERIAS).then((response) => {
+    axios.get(API_URLM).then((response) => {
       setMaterias(response.data);
     });
   };
 
   const deletarMateria = (materia) => {
     axios
-      .delete(API_URL_MATERIAS, { data: materia })
+      .delete(API_URLM, { data: materia })
       .then((response) => {
         MySwal.fire(<p>{response?.data?.message}</p>);
 

@@ -6,12 +6,10 @@ import {
   Form,
   InputCadastro,
 } from "../../components/Cadastros";
-import { API_URL } from "../../constants";
+import { API_URLM } from "../../constants";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useParams } from "react-router";
-
-const API_URL_MATERIAS = API_URL + "materias";
 
 const CadastrarMaterias = () => {
   const { id } = useParams();
@@ -26,7 +24,7 @@ const CadastrarMaterias = () => {
   }, []);
 
     const getMaterias = () => {
-      axios.get(API_URL_MATERIAS).then((response) => {
+      axios.get(API_URLM).then((response) => {
         response.data.forEach((materia) => {
           if (materia.id == id) {
             setTitulo(materia.titulo);
@@ -39,7 +37,7 @@ const CadastrarMaterias = () => {
   const cadastrarMaterias = () => {
     if (id) {
       axios
-        .put(API_URL_MATERIAS, {
+        .put(API_URLM, {
           id: id,
           titulo: titulo,
           professor_nome: nomeProfessor,
@@ -59,7 +57,7 @@ const CadastrarMaterias = () => {
         });
     } else {
       axios
-        .post(API_URL_MATERIAS, {
+        .post(API_URLM, {
           titulo: titulo,
           professor_nome: nomeProfessor,
         })
